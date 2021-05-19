@@ -153,7 +153,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1621453608
+export SOURCE_DATE_EPOCH=1621454559
 unset LD_AS_NEEDED
 mkdir -p clr-build
 pushd clr-build
@@ -222,6 +222,8 @@ export FFLAGS="${FFLAGS_GENERATE}"
 export FCFLAGS="${FCFLAGS_GENERATE}"
 export LDFLAGS="${LDFLAGS_GENERATE}"
 %cmake .. -GNinja \
+-DCMAKE_INSTALL_LIBDIR=%{_libdir} \
+-DCMAKE_INSTALL_PREFIX=/usr \
 -DCMAKE_JOB_POOLS="full_jobs=16" \
 -DCMAKE_JOB_POOL_COMPILE="full_jobs" \
 -DCMAKE_JOB_POOL_LINK="full_jobs" \
@@ -257,6 +259,8 @@ export FFLAGS="${FFLAGS_USE}"
 export FCFLAGS="${FCFLAGS_USE}"
 export LDFLAGS="${LDFLAGS_USE}"
 %cmake .. -GNinja \
+-DCMAKE_INSTALL_LIBDIR=%{_libdir} \
+-DCMAKE_INSTALL_PREFIX=/usr \
 -DCMAKE_JOB_POOLS="full_jobs=16" \
 -DCMAKE_JOB_POOL_COMPILE="full_jobs" \
 -DCMAKE_JOB_POOL_LINK="full_jobs" \
@@ -282,7 +286,7 @@ fi
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1621453608
+export SOURCE_DATE_EPOCH=1621454559
 rm -rf %{buildroot}
 pushd clr-build
 %ninja_install

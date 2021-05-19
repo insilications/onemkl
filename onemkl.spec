@@ -11,6 +11,7 @@ Source0  : file:///aot/build/clearlinux/packages/onemkl/onemkl-v0.2.tar.gz
 Summary  : GoogleTest (with main() function)
 Group    : Development/Tools
 License  : GPL-2.0
+Requires: onemkl-plugins = %{version}-%{release}
 BuildRequires : Sphinx
 BuildRequires : Z3-dev
 BuildRequires : Z3-staticdev
@@ -123,6 +124,24 @@ Patch1: 0001-Fix-FindCBLAS.cmake.patch
 # oneAPI Math Kernel Library (oneMKL) Interfaces
 oneMKL interfaces are an open-source implementation of the oneMKL Data Parallel C++ (DPC++) interface according to the [oneMKL specification](https://spec.oneapi.com/versions/latest/elements/oneMKL/source/index.html). It works with multiple devices (backends) using device-specific libraries underneath.
 
+%package dev
+Summary: dev components for the onemkl package.
+Group: Development
+Provides: onemkl-devel = %{version}-%{release}
+Requires: onemkl = %{version}-%{release}
+
+%description dev
+dev components for the onemkl package.
+
+
+%package plugins
+Summary: plugins components for the onemkl package.
+Group: Default
+
+%description plugins
+plugins components for the onemkl package.
+
+
 %prep
 %setup -q -n onemkl
 cd %{_builddir}/onemkl
@@ -134,7 +153,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1621452953
+export SOURCE_DATE_EPOCH=1621453608
 unset LD_AS_NEEDED
 mkdir -p clr-build
 pushd clr-build
@@ -152,7 +171,7 @@ export CFFLAGS_GENERATE="-Wno-unused-function -fuse-ld=bfd -O3 -static-libgcc -s
 #
 export LDFLAGS_GENERATE="-Wno-unused-function -fuse-ld=bfd -O3 -static-libgcc -static-libstdc++ -static-intel -Wl,-O2 -march=native -mtune=native -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -lpthread $PGO_GEN"
 ## pgo use
-export PGO_USE="-fprofile-use=/var/tmp/pgo/default.profdata"
+export PGO_USE="-fprofile-use=/var/tmp/pgo/"
 export CFLAGS_USE="-Wno-unused-function -fuse-ld=bfd -O3 -static-libgcc -static-libstdc++ -static-intel -Wl,-O2 -march=native -mtune=native -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
 #
 export CXXFLAGS_USE="-mllvm -enable-name-compression=false -Wno-unused-function -fuse-ld=bfd -O3 -static-libgcc -static-libstdc++ -static-intel -Wl,-O2 -march=native -mtune=native -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
@@ -263,7 +282,7 @@ fi
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1621452953
+export SOURCE_DATE_EPOCH=1621453608
 rm -rf %{buildroot}
 pushd clr-build
 %ninja_install
@@ -271,3 +290,134 @@ popd
 
 %files
 %defattr(-,root,root,-)
+/usr/docs/html/.buildinfo
+/usr/docs/html/create_new_backend.html
+/usr/docs/html/domains/blas/asum.html
+/usr/docs/html/domains/blas/axpy.html
+/usr/docs/html/domains/blas/axpy_batch.html
+/usr/docs/html/domains/blas/blas-level-1-routines.html
+/usr/docs/html/domains/blas/blas-level-2-routines.html
+/usr/docs/html/domains/blas/blas-level-3-routines.html
+/usr/docs/html/domains/blas/blas-like-extensions.html
+/usr/docs/html/domains/blas/blas.html
+/usr/docs/html/domains/blas/copy.html
+/usr/docs/html/domains/blas/dot.html
+/usr/docs/html/domains/blas/dotc.html
+/usr/docs/html/domains/blas/dotu.html
+/usr/docs/html/domains/blas/gbmv.html
+/usr/docs/html/domains/blas/gemm.html
+/usr/docs/html/domains/blas/gemm_batch.html
+/usr/docs/html/domains/blas/gemm_bias.html
+/usr/docs/html/domains/blas/gemmt.html
+/usr/docs/html/domains/blas/gemv.html
+/usr/docs/html/domains/blas/ger.html
+/usr/docs/html/domains/blas/gerc.html
+/usr/docs/html/domains/blas/geru.html
+/usr/docs/html/domains/blas/hbmv.html
+/usr/docs/html/domains/blas/hemm.html
+/usr/docs/html/domains/blas/hemv.html
+/usr/docs/html/domains/blas/her.html
+/usr/docs/html/domains/blas/her2.html
+/usr/docs/html/domains/blas/her2k.html
+/usr/docs/html/domains/blas/herk.html
+/usr/docs/html/domains/blas/hpmv.html
+/usr/docs/html/domains/blas/hpr.html
+/usr/docs/html/domains/blas/hpr2.html
+/usr/docs/html/domains/blas/iamax.html
+/usr/docs/html/domains/blas/iamin.html
+/usr/docs/html/domains/blas/nrm2.html
+/usr/docs/html/domains/blas/rot.html
+/usr/docs/html/domains/blas/rotg.html
+/usr/docs/html/domains/blas/rotm.html
+/usr/docs/html/domains/blas/rotmg.html
+/usr/docs/html/domains/blas/sbmv.html
+/usr/docs/html/domains/blas/scal.html
+/usr/docs/html/domains/blas/sdsdot.html
+/usr/docs/html/domains/blas/spmv.html
+/usr/docs/html/domains/blas/spr.html
+/usr/docs/html/domains/blas/spr2.html
+/usr/docs/html/domains/blas/swap.html
+/usr/docs/html/domains/blas/symm.html
+/usr/docs/html/domains/blas/symv.html
+/usr/docs/html/domains/blas/syr.html
+/usr/docs/html/domains/blas/syr2.html
+/usr/docs/html/domains/blas/syr2k.html
+/usr/docs/html/domains/blas/syrk.html
+/usr/docs/html/domains/blas/tbmv.html
+/usr/docs/html/domains/blas/tbsv.html
+/usr/docs/html/domains/blas/tpmv.html
+/usr/docs/html/domains/blas/tpsv.html
+/usr/docs/html/domains/blas/trmm.html
+/usr/docs/html/domains/blas/trmv.html
+/usr/docs/html/domains/blas/trsm.html
+/usr/docs/html/domains/blas/trsm_batch.html
+/usr/docs/html/domains/blas/trsv.html
+/usr/docs/html/domains/matrix-storage.html
+/usr/docs/html/domains/onemkl_datatypes.html
+/usr/docs/html/genindex.html
+/usr/docs/html/index.html
+/usr/docs/html/objects.inv
+/usr/docs/html/onemkl-datatypes.html
+/usr/docs/html/search.html
+/usr/docs/html/searchindex.js
+
+%files dev
+%defattr(-,root,root,-)
+/usr/include/oneapi/mkl.hpp
+/usr/include/oneapi/mkl/blas.hpp
+/usr/include/oneapi/mkl/blas.hxx
+/usr/include/oneapi/mkl/blas/detail/blas_ct_backends.hpp
+/usr/include/oneapi/mkl/blas/detail/blas_ct_backends.hxx
+/usr/include/oneapi/mkl/blas/detail/blas_loader.hpp
+/usr/include/oneapi/mkl/blas/detail/blas_loader.hxx
+/usr/include/oneapi/mkl/blas/detail/cublas/blas_ct.hpp
+/usr/include/oneapi/mkl/blas/detail/cublas/blas_ct.hxx
+/usr/include/oneapi/mkl/blas/detail/cublas/onemkl_blas_cublas.hpp
+/usr/include/oneapi/mkl/blas/detail/cublas/onemkl_blas_cublas.hxx
+/usr/include/oneapi/mkl/blas/detail/mklcpu/blas_ct.hpp
+/usr/include/oneapi/mkl/blas/detail/mklcpu/blas_ct.hxx
+/usr/include/oneapi/mkl/blas/detail/mklcpu/onemkl_blas_mklcpu.hpp
+/usr/include/oneapi/mkl/blas/detail/mklgpu/blas_ct.hpp
+/usr/include/oneapi/mkl/blas/detail/mklgpu/blas_ct.hxx
+/usr/include/oneapi/mkl/blas/detail/mklgpu/onemkl_blas_mklgpu.hpp
+/usr/include/oneapi/mkl/blas/detail/netlib/blas_ct.hpp
+/usr/include/oneapi/mkl/blas/detail/netlib/blas_ct.hxx
+/usr/include/oneapi/mkl/blas/detail/netlib/onemkl_blas_netlib.hpp
+/usr/include/oneapi/mkl/blas/detail/onemkl_blas_backends.hxx
+/usr/include/oneapi/mkl/blas/predicates.hpp
+/usr/include/oneapi/mkl/blas/predicates.hxx
+/usr/include/oneapi/mkl/detail/backend_selector.hpp
+/usr/include/oneapi/mkl/detail/backend_selector_predicates.hpp
+/usr/include/oneapi/mkl/detail/backends.hpp
+/usr/include/oneapi/mkl/detail/backends_table.hpp
+/usr/include/oneapi/mkl/detail/config.hpp
+/usr/include/oneapi/mkl/detail/exceptions.hpp
+/usr/include/oneapi/mkl/detail/export.hpp
+/usr/include/oneapi/mkl/detail/get_device_id.hpp
+/usr/include/oneapi/mkl/exceptions.hpp
+/usr/include/oneapi/mkl/rng.hpp
+/usr/include/oneapi/mkl/rng/detail/curand/onemkl_rng_curand.hpp
+/usr/include/oneapi/mkl/rng/detail/engine_impl.hpp
+/usr/include/oneapi/mkl/rng/detail/mklcpu/onemkl_rng_mklcpu.hpp
+/usr/include/oneapi/mkl/rng/detail/mklgpu/onemkl_rng_mklgpu.hpp
+/usr/include/oneapi/mkl/rng/detail/rng_loader.hpp
+/usr/include/oneapi/mkl/rng/distributions.hpp
+/usr/include/oneapi/mkl/rng/engines.hpp
+/usr/include/oneapi/mkl/rng/functions.hpp
+/usr/include/oneapi/mkl/rng/predicates.hpp
+/usr/include/oneapi/mkl/types.hpp
+/usr/lib/cmake/oneMKL/FindCompiler.cmake
+/usr/lib/cmake/oneMKL/FindMKL.cmake
+/usr/lib/cmake/oneMKL/oneMKLConfig.cmake
+/usr/lib/cmake/oneMKL/oneMKLConfigVersion.cmake
+/usr/lib/cmake/oneMKL/oneMKLTargets-release.cmake
+/usr/lib/cmake/oneMKL/oneMKLTargets.cmake
+/usr/lib/libonemkl.so
+/usr/lib/libonemkl_blas_mklcpu.so
+/usr/lib/libonemkl_rng_mklcpu.so
+
+%files plugins
+%defattr(-,root,root,-)
+/usr/lib/libonemkl.so.0
+/usr/lib/libonemkl_blas_mklcpu.so.0
+/usr/lib/libonemkl_rng_mklcpu.so.0

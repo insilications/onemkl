@@ -1,4 +1,6 @@
 -GNinja
+-DCMAKE_INSTALL_LIBDIR=%{_libdir}
+-DCMAKE_INSTALL_PREFIX=/usr
 -DCMAKE_JOB_POOLS="full_jobs=16"
 -DCMAKE_JOB_POOL_COMPILE="full_jobs"
 -DCMAKE_JOB_POOL_LINK="full_jobs"

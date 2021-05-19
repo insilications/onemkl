@@ -1,12 +1,12 @@
-export CFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread"
+export CFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread"
 #
-export CXXFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -fPIC -fomit-frame-pointer -pthread"
+export CXXFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -fPIC -fomit-frame-pointer -pthread"
 #
-export FCFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread"
-export FFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer"
-export CFFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread"
+export FCFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread"
+export FFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer"
+export CFFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread"
 #
-export LDFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -lpthread"
+export LDFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -lpthread"
 #
 #export AR=/usr/bin/gcc-ar
 #export RANLIB=/usr/bin/gcc-ranlib

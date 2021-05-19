@@ -134,21 +134,34 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1621427094
+export SOURCE_DATE_EPOCH=1621431924
 unset LD_AS_NEEDED
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
-## altflags1 content
-export CFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc"
+## altflags_pgo content
+## pgo generate
+export PGO_GEN="-fcs-profile-generate=/var/tmp/pgo -fprofile-dir=/var/tmp/pgo -fprofile-update=atomic -fprofile-arcs -ftest-coverage --coverage"
+export CFLAGS_GENERATE="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_GEN"
 #
-export CXXFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc"
+export CXXFLAGS_GENERATE="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -fPIC -fomit-frame-pointer -pthread $PGO_GEN"
 #
-export FCFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc"
-export FFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer"
-export CFFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc"
+export FCFLAGS_GENERATE="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_GEN"
+export FFLAGS_GENERATE="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer $PGO_GEN"
+export CFFLAGS_GENERATE="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_GEN"
 #
-export LDFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc -lpthread"
+export LDFLAGS_GENERATE="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -lpthread $PGO_GEN"
+## pgo use
+export PGO_USE="-fprofile-use=/var/tmp/pgo -fprofile-dir=/var/tmp/pgo"
+export CFLAGS_USE="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
+#
+export CXXFLAGS_USE="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
+#
+export FCFLAGS_USE="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
+export FFLAGS_USE="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer $PGO_USE"
+export CFFLAGS_USE="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
+#
+export LDFLAGS_USE="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -lpthread $PGO_USE"
 #
 #export AR=/usr/bin/gcc-ar
 #export RANLIB=/usr/bin/gcc-ranlib
@@ -176,21 +189,28 @@ export CCACHE_BASEDIR=/builddir/build/BUILD
 #
 export CMAKE_MODULE_PATH="/aot/intel/oneapi/lib64/cmake/"
 export CXX="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp"
-export CC="/aot/intel/oneapi/compiler/latest/linux/bin/clang"
+export CC="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp"
 export C_INCLUDE_PATH="/usr/include/c++/11:/usr/include/c++/11/x86_64-generic-linux"
 export CPLUS_INCLUDE_PATH="/usr/include/c++/11:/usr/include/c++/11/x86_64-generic-linux"
 export CPATH="/usr/include/c++/11:/usr/include/c++/11/x86_64-generic-linux"
 source /aot/intel/oneapi/setvars.sh
-## altflags1 end
+## altflags_pgo end
+if [ ! -f statuspgo ]; then
+echo PGO Phase 1
+export CFLAGS="${CFLAGS_GENERATE}"
+export CXXFLAGS="${CXXFLAGS_GENERATE}"
+export FFLAGS="${FFLAGS_GENERATE}"
+export FCFLAGS="${FCFLAGS_GENERATE}"
+export LDFLAGS="${LDFLAGS_GENERATE}"
 %cmake .. -GNinja \
+-DCMAKE_JOB_POOLS="full_jobs=16" \
+-DCMAKE_JOB_POOL_COMPILE="full_jobs" \
+-DCMAKE_JOB_POOL_LINK="full_jobs" \
+-DCMAKE_BUILD_TYPE=Release \
+-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
 -DREF_BLAS_ROOT="/usr" \
--DCMAKE_C_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/clang" \
+-DCMAKE_C_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp" \
 -DCMAKE_CXX_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp" \
--DCMAKE_C_FLAGS="$CFLAGS" \
--DCMAKE_CXX_FLAGS="$CXXFLAGS" \
--DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" \
--DCMAKE_MODULE_LINKER_FLAGS="$LDFLAGS" \
--DCMAKE_SHARED_LINKER_FLAGS="$LDFLAGS" \
 -DBUILD_DOC:BOOL=ON \
 -DBUILD_SHARED_LIBS:BOOL=ON \
 -DENABLE_MKLCPU_BACKEND:BOOL=ON \
@@ -198,14 +218,51 @@ source /aot/intel/oneapi/setvars.sh
 -DENABLE_MKLCPU_THREAD_TBB:BOOL=ON \
 -DBUILD_FUNCTIONAL_TESTS:BOOL=ON
 ninja --verbose -j16
-ctest -j16 --verbose --progress || :
 ## ccache stats
 ccache -s
 ## ccache stats
+
+ctest -j16 --verbose --progress || :
+llvm-profdata merge -output=default.profdata /var/tmp/pgo/
+find . -type f,l -not -name '*.gcno' -not -name 'statuspgo*' -delete -print
+echo USED > statuspgo
+fi
+if [ -f statuspgo ]; then
+echo PGO Phase 2
+export CFLAGS="${CFLAGS_USE}"
+export CXXFLAGS="${CXXFLAGS_USE}"
+export FFLAGS="${FFLAGS_USE}"
+export FCFLAGS="${FCFLAGS_USE}"
+export LDFLAGS="${LDFLAGS_USE}"
+%cmake .. -GNinja \
+-DCMAKE_C_FLAGS="$CFLAGS" \
+-DCMAKE_CXX_FLAGS="$CXXFLAGS" \
+-DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" \
+-DCMAKE_MODULE_LINKER_FLAGS="$LDFLAGS" \
+-DCMAKE_SHARED_LINKER_FLAGS="$LDFLAGS" \
+-DCMAKE_CXX_COMPILER=g++ \
+-DCMAKE_C_COMPILER=gcc \
+-DCMAKE_JOB_POOLS="full_jobs=16" \
+-DCMAKE_JOB_POOL_COMPILE="full_jobs" \
+-DCMAKE_JOB_POOL_LINK="full_jobs" \
+-DCMAKE_BUILD_TYPE=Release \
+-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
+-DCMAKE_INSTALL_PREFIX=/usr \
+-DTBB_STRICT:BOOL=OFF \
+-DTBB_INSTALL_VARS:BOOL=ON \
+-DTBB4PY_BUILD:BOOL=ON \
+-DBUILD_SHARED_LIBS:BOOL=ON \
+-DTBB_TEST_SPEC:BOOL=OFF \
+-DTBB_TEST:BOOL=OFF
+ninja --verbose -j16
+## ccache stats
+ccache -s
+## ccache stats
+fi
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1621427094
+export SOURCE_DATE_EPOCH=1621431924
 rm -rf %{buildroot}
 pushd clr-build
 %ninja_install

@@ -134,7 +134,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1621426442
+export SOURCE_DATE_EPOCH=1621427094
 unset LD_AS_NEEDED
 mkdir -p clr-build
 pushd clr-build
@@ -205,7 +205,7 @@ ccache -s
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1621426442
+export SOURCE_DATE_EPOCH=1621427094
 rm -rf %{buildroot}
 pushd clr-build
 %ninja_install

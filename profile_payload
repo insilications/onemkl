@@ -1,2 +1,2 @@
 ctest -j8 --progress || :
-llvm-profdata merge -output=default.profdata /var/tmp/pgo/
+/usr/bin/llvm-profdata merge -output=/var/tmp/pgo/default.profdata /var/tmp/pgo/

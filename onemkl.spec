@@ -134,7 +134,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1621444270
+export SOURCE_DATE_EPOCH=1621445691
 unset LD_AS_NEEDED
 mkdir -p clr-build
 pushd clr-build
@@ -226,7 +226,7 @@ ccache -s
 ## ccache stats
 
 ctest -j8 --progress || :
-llvm-profdata merge -output=default.profdata /var/tmp/pgo/
+/usr/bin/llvm-profdata merge -output=/var/tmp/pgo/default.profdata /var/tmp/pgo/
 find . -type f,l -not -name '*.gcno' -not -name 'statuspgo*' -delete -print
 echo USED > statuspgo
 fi
@@ -263,7 +263,7 @@ fi
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1621444270
+export SOURCE_DATE_EPOCH=1621445691
 rm -rf %{buildroot}
 pushd clr-build
 %ninja_install

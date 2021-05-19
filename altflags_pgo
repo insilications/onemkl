@@ -1,25 +1,25 @@
 ## pgo generate
-export PGO_GEN="-fcs-profile-generate=/var/tmp/pgo -fprofile-dir=/var/tmp/pgo -fprofile-update=atomic -fprofile-arcs -ftest-coverage --coverage"
-export CFLAGS_GENERATE="-fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_GEN"
+export PGO_GEN="-fcs-profile-generate=/var/tmp/pgo -fprofile-dir=/var/tmp/pgo -fprofile-update=atomic -fprofile-arcs -ftest-coverage"
+export CFLAGS_GENERATE="-Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_GEN"
 #
-export CXXFLAGS_GENERATE="-fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -fPIC -fomit-frame-pointer -pthread $PGO_GEN"
+export CXXFLAGS_GENERATE="-Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -fPIC -fomit-frame-pointer -pthread $PGO_GEN"
 #
-export FCFLAGS_GENERATE="-fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_GEN"
-export FFLAGS_GENERATE="-fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer $PGO_GEN"
-export CFFLAGS_GENERATE="-fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_GEN"
+export FCFLAGS_GENERATE="-Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_GEN"
+export FFLAGS_GENERATE="-Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer $PGO_GEN"
+export CFFLAGS_GENERATE="-Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_GEN"
 #
-export LDFLAGS_GENERATE="-fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -lpthread $PGO_GEN"
+export LDFLAGS_GENERATE="-Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -lpthread $PGO_GEN"
 ## pgo use
 export PGO_USE="-fprofile-use=/var/tmp/pgo -fprofile-dir=/var/tmp/pgo"
-export CFLAGS_USE="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
+export CFLAGS_USE="-g -Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
 #
-export CXXFLAGS_USE="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
+export CXXFLAGS_USE="-g -Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
 #
-export FCFLAGS_USE="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
-export FFLAGS_USE="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer $PGO_USE"
-export CFFLAGS_USE="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
+export FCFLAGS_USE="-g -Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
+export FFLAGS_USE="-g -Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer $PGO_USE"
+export CFFLAGS_USE="-g -Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
 #
-export LDFLAGS_USE="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -lpthread $PGO_USE"
+export LDFLAGS_USE="-g -Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -funroll-loops -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -lpthread $PGO_USE"
 #
 #export AR=/usr/bin/gcc-ar
 #export RANLIB=/usr/bin/gcc-ranlib
@@ -47,7 +47,7 @@ export CCACHE_BASEDIR=/builddir/build/BUILD
 #
 export CMAKE_MODULE_PATH="/aot/intel/oneapi/lib64/cmake/"
 export CXX="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp"
-export CC="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp"
+export CC="/aot/intel/oneapi/compiler/latest/linux/bin/icx"
 export C_INCLUDE_PATH="/usr/include/c++/11:/usr/include/c++/11/x86_64-generic-linux"
 export CPLUS_INCLUDE_PATH="/usr/include/c++/11:/usr/include/c++/11/x86_64-generic-linux"
 export CPATH="/usr/include/c++/11:/usr/include/c++/11/x86_64-generic-linux"

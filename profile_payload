@@ -1,2 +1,2 @@
-ctest -j16 --verbose --progress || :
+ctest -j8 --progress || :
 llvm-profdata merge -output=default.profdata /var/tmp/pgo/

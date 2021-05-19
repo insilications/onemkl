@@ -1,7 +1,7 @@
 From c4672e992c7409ce1f20635648323d930c9992c1 Mon Sep 17 00:00:00 2001
 From: Francisco Boni <boboniboni@gmail.com>
 Date: Wed, 19 May 2021 09:09:45 -0300
-Subject: [PATCH] Fix FindCBLAS.cmake
+Subject: [PATCH 1/2] Fix FindCBLAS.cmake
 
 ---
  cmake/FindCBLAS.cmake | 4 ++--

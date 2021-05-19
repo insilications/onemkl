@@ -1,0 +1,63 @@
+From ae581c4ebab795fe70bef833b2d03a7eef009a7d Mon Sep 17 00:00:00 2001
+From: Francisco Boni <boboniboni@gmail.com>
+Date: Wed, 19 May 2021 11:47:23 -0300
+Subject: [PATCH 2/2] Fix find CUDA
+
+---
+ cmake/FindcuBLAS.cmake | 4 +---
+ cmake/FindcuRAND.cmake | 3 +--
+ 2 files changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/cmake/FindcuBLAS.cmake b/cmake/FindcuBLAS.cmake
+index 6cfe915..9bc54cc 100644
+--- a/cmake/FindcuBLAS.cmake
++++ b/cmake/FindcuBLAS.cmake
+@@ -16,7 +16,6 @@
+ #  limitations under the License.
+ #
+ #=========================================================================
+-
+ find_package(CUDA 10.0 REQUIRED)
+ get_filename_component(SYCL_BINARY_DIR ${CMAKE_CXX_COMPILER} DIRECTORY)
+ # the OpenCL include file from cuda is opencl 1.1 and it is not compatible with DPC++
+@@ -37,7 +36,6 @@ find_package_handle_standard_args(cuBLAS
+ 	CUDA_TOOLKIT_INCLUDE
+ 	CUDA_cublas_LIBRARY
+         CUDA_LIBRARIES
+-        CUDA_CUDA_LIBRARY
+         OPENCL_INCLUDE_DIR
+ )
+ if(NOT TARGET ONEMKL::cuBLAS::cuBLAS)
+@@ -45,7 +43,7 @@ if(NOT TARGET ONEMKL::cuBLAS::cuBLAS)
+   set_target_properties(ONEMKL::cuBLAS::cuBLAS PROPERTIES
+       IMPORTED_LOCATION ${CUDA_cublas_LIBRARY}
+       INTERFACE_INCLUDE_DIRECTORIES "${OPENCL_INCLUDE_DIR};${CUDA_TOOLKIT_INCLUDE}"
+-      INTERFACE_LINK_LIBRARIES "Threads::Threads;${CUDA_CUDA_LIBRARY};${CUDA_LIBRARIES}"
++      INTERFACE_LINK_LIBRARIES "Threads::Threads;${CUDA_LIBRARIES}"
+   )
+ 
+ endif()
+diff --git a/cmake/FindcuRAND.cmake b/cmake/FindcuRAND.cmake
+index 696afda..e46c247 100644
+--- a/cmake/FindcuRAND.cmake
++++ b/cmake/FindcuRAND.cmake
+@@ -76,7 +76,6 @@ find_package_handle_standard_args(cuRAND
+ 	CUDA_TOOLKIT_INCLUDE
+ 	CUDA_curand_LIBRARY
+         CUDA_LIBRARIES
+-        CUDA_CUDA_LIBRARY
+         OPENCL_INCLUDE_DIR
+ )
+ if(NOT TARGET ONEMKL::cuRAND::cuRAND)
+@@ -84,7 +83,7 @@ if(NOT TARGET ONEMKL::cuRAND::cuRAND)
+   set_target_properties(ONEMKL::cuRAND::cuRAND PROPERTIES
+       IMPORTED_LOCATION ${CUDA_curand_LIBRARY}
+       INTERFACE_INCLUDE_DIRECTORIES "${OPENCL_INCLUDE_DIR};${CUDA_TOOLKIT_INCLUDE}"
+-      INTERFACE_LINK_LIBRARIES "Threads::Threads;${CUDA_CUDA_LIBRARY};${CUDA_LIBRARIES}"
++      INTERFACE_LINK_LIBRARIES "Threads::Threads;${CUDA_LIBRARIES}"
+   )
+ 
+ endif()
+-- 
+2.31.1
+

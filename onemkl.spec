@@ -121,7 +121,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1621419934
+export SOURCE_DATE_EPOCH=1621420239
 unset LD_AS_NEEDED
 mkdir -p clr-build
 pushd clr-build
@@ -163,9 +163,12 @@ export CCACHE_BASEDIR=/builddir/build/BUILD
 #
 export CMAKE_MODULE_PATH="/aot/intel/oneapi/lib64/cmake/"
 export CXX="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp"
+export CC="/aot/intel/oneapi/compiler/latest/linux/bin/clang"
 source /aot/intel/oneapi/setvars.sh
 ## altflags1 end
 %cmake .. -GNinja \
+-DCMAKE_C_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/clang" \
+-DCMAKE_CXX_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp" \
 -DCMAKE_C_FLAGS="$CFLAGS" \
 -DCMAKE_CXX_FLAGS="$CXXFLAGS" \
 -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" \
@@ -187,7 +190,7 @@ ccache -s
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1621419934
+export SOURCE_DATE_EPOCH=1621420239
 rm -rf %{buildroot}
 pushd clr-build
 %ninja_install

@@ -1,5 +1,5 @@
 -GNinja
--DCMAKE_C_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp"
+-DCMAKE_C_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/clang"
 -DCMAKE_CXX_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp"
 -DCMAKE_C_FLAGS="$CFLAGS"
 -DCMAKE_CXX_FLAGS="$CXXFLAGS"

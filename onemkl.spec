@@ -121,7 +121,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1621420359
+export SOURCE_DATE_EPOCH=1621420468
 unset LD_AS_NEEDED
 mkdir -p clr-build
 pushd clr-build
@@ -129,17 +129,17 @@ export GCC_IGNORE_WERROR=1
 ## altflags1 content
 export CFLAGS="-g -fuse-ld=ldd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc"
 #
-export CXXFLAGS="-g -fuse-ld=ldd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc"
+export CXXFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc"
 #
 export FCFLAGS="-g -fuse-ld=ldd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc"
 export FFLAGS="-g -fuse-ld=ldd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer"
 export CFFLAGS="-g -fuse-ld=ldd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc"
 #
-export LDFLAGS="-g -fuse-ld=ldd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc -lpthread"
+export LDFLAGS="-g -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc -lpthread"
 #
-export AR=/usr/bin/gcc-ar
-export RANLIB=/usr/bin/gcc-ranlib
-export NM=/usr/bin/gcc-nm
+#export AR=/usr/bin/gcc-ar
+#export RANLIB=/usr/bin/gcc-ranlib
+#export NM=/usr/bin/gcc-nm
 #
 export MAKEFLAGS=%{?_smp_mflags}
 #
@@ -190,7 +190,7 @@ ccache -s
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1621420359
+export SOURCE_DATE_EPOCH=1621420468
 rm -rf %{buildroot}
 pushd clr-build
 %ninja_install

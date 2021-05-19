@@ -1,2 +1,1 @@
 ninja --verbose -j16
-ctest -j16 --verbose --progress || :

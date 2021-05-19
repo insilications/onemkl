@@ -3,9 +3,6 @@
 binutils-dev
 buildreq-cmake
 buildreq-distutils3
-cuda
-cuda-dev
-cuda-staticdev
 doxygen
 eigen
 eigen-data
@@ -72,9 +69,6 @@ ncurses-dev
 ninja
 nv-codec-headers
 nv-codec-headers-dev
-nvidia
-nvidia-dev
-nvidia-lib
 onetbb
 onetbb-dev
 openblas

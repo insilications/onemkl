@@ -34,4 +34,5 @@ export CCACHE_BASEDIR=/builddir/build/BUILD
 #
 export CMAKE_MODULE_PATH="/aot/intel/oneapi/lib64/cmake/"
 export CXX="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp"
+export CC="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp"
 source /aot/intel/oneapi/setvars.sh

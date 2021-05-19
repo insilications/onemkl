@@ -1,0 +1,28 @@
+From c4672e992c7409ce1f20635648323d930c9992c1 Mon Sep 17 00:00:00 2001
+From: Francisco Boni <boboniboni@gmail.com>
+Date: Wed, 19 May 2021 09:09:45 -0300
+Subject: [PATCH] Fix FindCBLAS.cmake
+
+---
+ cmake/FindCBLAS.cmake | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/cmake/FindCBLAS.cmake b/cmake/FindCBLAS.cmake
+index b651585..f91d5b9 100644
+--- a/cmake/FindCBLAS.cmake
++++ b/cmake/FindCBLAS.cmake
+@@ -19,9 +19,9 @@
+ 
+ include_guard()
+ 
+-find_library(CBLAS_file NAMES cblas.dll.lib cblas.lib cblas HINTS ${REF_BLAS_ROOT} PATH_SUFFIXES lib lib64)
++find_library(CBLAS_file NAMES cblas.dll.lib cblas.lib openblas HINTS ${REF_BLAS_ROOT} PATH_SUFFIXES lib64/haswell)
+ find_package_handle_standard_args(CBLAS REQUIRED_VARS CBLAS_file)
+-find_library(BLAS_file NAMES blas.dll.lib blas.lib blas HINTS ${REF_BLAS_ROOT} PATH_SUFFIXES lib lib64)
++find_library(BLAS_file NAMES blas.dll.lib blas.lib blas HINTS ${REF_BLAS_ROOT} PATH_SUFFIXES lib64/haswell)
+ find_package_handle_standard_args(CBLAS REQUIRED_VARS BLAS_file)
+ 
+ get_filename_component(CBLAS_LIB_DIR ${CBLAS_file} DIRECTORY)
+-- 
+2.31.1
+

@@ -11,6 +11,7 @@ Source0  : file:///aot/build/clearlinux/packages/onemkl/onemkl-v0.2.tar.gz
 Summary  : GoogleTest (with main() function)
 Group    : Development/Tools
 License  : GPL-2.0
+BuildRequires : Sphinx
 BuildRequires : Z3-dev
 BuildRequires : Z3-staticdev
 BuildRequires : binutils-dev
@@ -69,6 +70,15 @@ BuildRequires : libgcc1
 BuildRequires : libstdc++
 BuildRequires : libxml2-dev
 BuildRequires : libxml2-staticdev
+BuildRequires : llvm
+BuildRequires : llvm-abi
+BuildRequires : llvm-bin
+BuildRequires : llvm-data
+BuildRequires : llvm-dev
+BuildRequires : llvm-lib
+BuildRequires : llvm-libexec
+BuildRequires : llvm-man
+BuildRequires : llvm-staticdev
 BuildRequires : mesa-dev
 BuildRequires : nasm
 BuildRequires : nasm-bin
@@ -83,6 +93,7 @@ BuildRequires : onetbb
 BuildRequires : onetbb-dev
 BuildRequires : openblas
 BuildRequires : openblas-dev
+BuildRequires : openblas-staticdev
 BuildRequires : opencl-headers
 BuildRequires : opencl-headers-dev
 BuildRequires : openjpeg-dev
@@ -106,6 +117,7 @@ BuildRequires : zlib-staticdev
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
+Patch1: 0001-Fix-FindCBLAS.cmake.patch
 
 %description
 # oneAPI Math Kernel Library (oneMKL) Interfaces
@@ -114,6 +126,7 @@ oneMKL interfaces are an open-source implementation of the oneMKL Data Parallel 
 %prep
 %setup -q -n onemkl
 cd %{_builddir}/onemkl
+%patch1 -p1
 
 %build
 unset http_proxy
@@ -121,21 +134,21 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1621420468
+export SOURCE_DATE_EPOCH=1621426442
 unset LD_AS_NEEDED
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
 ## altflags1 content
-export CFLAGS="-g -fuse-ld=ldd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc"
+export CFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc"
 #
 export CXXFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc"
 #
-export FCFLAGS="-g -fuse-ld=ldd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc"
-export FFLAGS="-g -fuse-ld=ldd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer"
-export CFFLAGS="-g -fuse-ld=ldd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc"
+export FCFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc"
+export FFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer"
+export CFFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc"
 #
-export LDFLAGS="-g -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc -lpthread"
+export LDFLAGS="-g -fuse-ld=bfd -O3 -march=native -mtune=native -Wall -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -fno-trapping-math -feliminate-unused-debug-types -ipo -fno-plt -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -static-libstdc++ -static-libgcc -lpthread"
 #
 #export AR=/usr/bin/gcc-ar
 #export RANLIB=/usr/bin/gcc-ranlib
@@ -164,9 +177,13 @@ export CCACHE_BASEDIR=/builddir/build/BUILD
 export CMAKE_MODULE_PATH="/aot/intel/oneapi/lib64/cmake/"
 export CXX="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp"
 export CC="/aot/intel/oneapi/compiler/latest/linux/bin/clang"
+export C_INCLUDE_PATH="/usr/include/c++/11:/usr/include/c++/11/x86_64-generic-linux"
+export CPLUS_INCLUDE_PATH="/usr/include/c++/11:/usr/include/c++/11/x86_64-generic-linux"
+export CPATH="/usr/include/c++/11:/usr/include/c++/11/x86_64-generic-linux"
 source /aot/intel/oneapi/setvars.sh
 ## altflags1 end
 %cmake .. -GNinja \
+-DREF_BLAS_ROOT="/usr" \
 -DCMAKE_C_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/clang" \
 -DCMAKE_CXX_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp" \
 -DCMAKE_C_FLAGS="$CFLAGS" \
@@ -175,8 +192,6 @@ source /aot/intel/oneapi/setvars.sh
 -DCMAKE_MODULE_LINKER_FLAGS="$LDFLAGS" \
 -DCMAKE_SHARED_LINKER_FLAGS="$LDFLAGS" \
 -DBUILD_DOC:BOOL=ON \
--DMKL_ROOT=/usr \
--DREF_BLAS_ROOT=/usr \
 -DBUILD_SHARED_LIBS:BOOL=ON \
 -DENABLE_MKLCPU_BACKEND:BOOL=ON \
 -DENABLE_MKLGPU_BACKEND:BOOL=OFF \
@@ -190,7 +205,7 @@ ccache -s
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1621420468
+export SOURCE_DATE_EPOCH=1621426442
 rm -rf %{buildroot}
 pushd clr-build
 %ninja_install

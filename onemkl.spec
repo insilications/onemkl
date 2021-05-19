@@ -134,7 +134,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1621445691
+export SOURCE_DATE_EPOCH=1621448078
 unset LD_AS_NEEDED
 mkdir -p clr-build
 pushd clr-build
@@ -150,7 +150,7 @@ export FCFLAGS_GENERATE="-Wno-unused-function -fuse-ld=bfd -O3 -march=native -mt
 export FFLAGS_GENERATE="-Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer $PGO_GEN"
 export CFFLAGS_GENERATE="-Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_GEN"
 #
-export LDFLAGS_GENERATE="-Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -lpthread $PGO_GEN"
+export LDFLAGS_GENERATE="-mllvm -enable-name-compression=false -Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -lpthread $PGO_GEN"
 ## pgo use
 export PGO_USE="-fprofile-use=/var/tmp/pgo -fprofile-dir=/var/tmp/pgo"
 export CFLAGS_USE="-g -Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
@@ -161,7 +161,7 @@ export FCFLAGS_USE="-g -Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtun
 export FFLAGS_USE="-g -Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer $PGO_USE"
 export CFFLAGS_USE="-g -Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
 #
-export LDFLAGS_USE="-g -Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -lpthread $PGO_USE"
+export LDFLAGS_USE="-g -mllvm -enable-name-compression=false -Wno-unused-function -fuse-ld=bfd -O3 -march=native -mtune=native -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread -lpthread $PGO_USE"
 #
 #export AR=/usr/bin/gcc-ar
 #export RANLIB=/usr/bin/gcc-ranlib
@@ -226,7 +226,7 @@ ccache -s
 ## ccache stats
 
 ctest -j8 --progress || :
-/usr/bin/llvm-profdata merge -output=/var/tmp/pgo/default.profdata /var/tmp/pgo/
+llvm-profdata merge -output=/var/tmp/pgo/default.profdata /var/tmp/pgo/
 find . -type f,l -not -name '*.gcno' -not -name 'statuspgo*' -delete -print
 echo USED > statuspgo
 fi
@@ -263,7 +263,7 @@ fi
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1621445691
+export SOURCE_DATE_EPOCH=1621448078
 rm -rf %{buildroot}
 pushd clr-build
 %ninja_install

@@ -11,7 +11,7 @@ Source0  : file:///aot/build/clearlinux/packages/onemkl/onemkl-v0.2.tar.gz
 Summary  : GoogleTest (with main() function)
 Group    : Development/Tools
 License  : GPL-2.0
-Requires: onemkl-plugins = %{version}-%{release}
+Requires: onemkl-lib = %{version}-%{release}
 BuildRequires : Sphinx
 BuildRequires : Z3-dev
 BuildRequires : Z3-staticdev
@@ -127,6 +127,7 @@ oneMKL interfaces are an open-source implementation of the oneMKL Data Parallel 
 %package dev
 Summary: dev components for the onemkl package.
 Group: Development
+Requires: onemkl-lib = %{version}-%{release}
 Provides: onemkl-devel = %{version}-%{release}
 Requires: onemkl = %{version}-%{release}
 
@@ -134,12 +135,12 @@ Requires: onemkl = %{version}-%{release}
 dev components for the onemkl package.
 
 
-%package plugins
-Summary: plugins components for the onemkl package.
-Group: Default
+%package lib
+Summary: lib components for the onemkl package.
+Group: Libraries
 
-%description plugins
-plugins components for the onemkl package.
+%description lib
+lib components for the onemkl package.
 
 
 %prep
@@ -153,7 +154,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1621454559
+export SOURCE_DATE_EPOCH=1621455358
 unset LD_AS_NEEDED
 mkdir -p clr-build
 pushd clr-build
@@ -173,7 +174,7 @@ export LDFLAGS_GENERATE="-Wno-unused-function -fuse-ld=bfd -O3 -static-libgcc -s
 ## pgo use
 export PGO_USE="-fprofile-use=/var/tmp/pgo/"
 export CFLAGS_USE="-Wno-unused-function -fuse-ld=bfd -O3 -static-libgcc -static-libstdc++ -static-intel -Wl,-O2 -march=native -mtune=native -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
-#
+# -fwhole-program-vtables
 export CXXFLAGS_USE="-mllvm -enable-name-compression=false -Wno-unused-function -fuse-ld=bfd -O3 -static-libgcc -static-libstdc++ -static-intel -Wl,-O2 -march=native -mtune=native -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
 #
 export FCFLAGS_USE="-Wno-unused-function -fuse-ld=bfd -O3 -static-libgcc -static-libstdc++ -static-intel -Wl,-O2 -march=native -mtune=native -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
@@ -222,8 +223,10 @@ export FFLAGS="${FFLAGS_GENERATE}"
 export FCFLAGS="${FCFLAGS_GENERATE}"
 export LDFLAGS="${LDFLAGS_GENERATE}"
 %cmake .. -GNinja \
--DCMAKE_INSTALL_LIBDIR=%{_libdir} \
--DCMAKE_INSTALL_PREFIX=/usr \
+-DCMAKE_INSTALL_LIBDIR:PATH=/usr/lib64 \
+-DLIB_INSTALL_DIR:PATH=/usr/lib64 \
+-DLIB_SUFFIX=64 \
+-DCMAKE_INSTALL_PREFIX:PATH=/usr \
 -DCMAKE_JOB_POOLS="full_jobs=16" \
 -DCMAKE_JOB_POOL_COMPILE="full_jobs" \
 -DCMAKE_JOB_POOL_LINK="full_jobs" \
@@ -259,8 +262,10 @@ export FFLAGS="${FFLAGS_USE}"
 export FCFLAGS="${FCFLAGS_USE}"
 export LDFLAGS="${LDFLAGS_USE}"
 %cmake .. -GNinja \
--DCMAKE_INSTALL_LIBDIR=%{_libdir} \
--DCMAKE_INSTALL_PREFIX=/usr \
+-DCMAKE_INSTALL_LIBDIR:PATH=/usr/lib64 \
+-DLIB_INSTALL_DIR:PATH=/usr/lib64 \
+-DLIB_SUFFIX=64 \
+-DCMAKE_INSTALL_PREFIX:PATH=/usr \
 -DCMAKE_JOB_POOLS="full_jobs=16" \
 -DCMAKE_JOB_POOL_COMPILE="full_jobs" \
 -DCMAKE_JOB_POOL_LINK="full_jobs" \
@@ -286,11 +291,15 @@ fi
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1621454559
+export SOURCE_DATE_EPOCH=1621455358
 rm -rf %{buildroot}
 pushd clr-build
 %ninja_install
 popd
+## install_append content
+cp -a %{buildroot}/usr/lib/ %{buildroot}/usr/lib64/
+rm -rf %{buildroot}/usr/lib/
+## install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -410,18 +419,18 @@ popd
 /usr/include/oneapi/mkl/rng/functions.hpp
 /usr/include/oneapi/mkl/rng/predicates.hpp
 /usr/include/oneapi/mkl/types.hpp
-/usr/lib/cmake/oneMKL/FindCompiler.cmake
-/usr/lib/cmake/oneMKL/FindMKL.cmake
-/usr/lib/cmake/oneMKL/oneMKLConfig.cmake
-/usr/lib/cmake/oneMKL/oneMKLConfigVersion.cmake
-/usr/lib/cmake/oneMKL/oneMKLTargets-release.cmake
-/usr/lib/cmake/oneMKL/oneMKLTargets.cmake
-/usr/lib/libonemkl.so
-/usr/lib/libonemkl_blas_mklcpu.so
-/usr/lib/libonemkl_rng_mklcpu.so
+/usr/lib64/cmake/oneMKL/FindCompiler.cmake
+/usr/lib64/cmake/oneMKL/FindMKL.cmake
+/usr/lib64/cmake/oneMKL/oneMKLConfig.cmake
+/usr/lib64/cmake/oneMKL/oneMKLConfigVersion.cmake
+/usr/lib64/cmake/oneMKL/oneMKLTargets-release.cmake
+/usr/lib64/cmake/oneMKL/oneMKLTargets.cmake
+/usr/lib64/libonemkl.so
+/usr/lib64/libonemkl_blas_mklcpu.so
+/usr/lib64/libonemkl_rng_mklcpu.so
 
-%files plugins
+%files lib
 %defattr(-,root,root,-)
-/usr/lib/libonemkl.so.0
-/usr/lib/libonemkl_blas_mklcpu.so.0
-/usr/lib/libonemkl_rng_mklcpu.so.0
+/usr/lib64/libonemkl.so.0
+/usr/lib64/libonemkl_blas_mklcpu.so.0
+/usr/lib64/libonemkl_rng_mklcpu.so.0

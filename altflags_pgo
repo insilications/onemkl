@@ -12,7 +12,7 @@ export LDFLAGS_GENERATE="-Wno-unused-function -fuse-ld=bfd -O3 -static-libgcc -s
 ## pgo use
 export PGO_USE="-fprofile-use=/var/tmp/pgo/"
 export CFLAGS_USE="-Wno-unused-function -fuse-ld=bfd -O3 -static-libgcc -static-libstdc++ -static-intel -Wl,-O2 -march=native -mtune=native -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
-#
+# -fwhole-program-vtables
 export CXXFLAGS_USE="-mllvm -enable-name-compression=false -Wno-unused-function -fuse-ld=bfd -O3 -static-libgcc -static-libstdc++ -static-intel -Wl,-O2 -march=native -mtune=native -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -fvisibility-inlines-hidden -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"
 #
 export FCFLAGS_USE="-Wno-unused-function -fuse-ld=bfd -O3 -static-libgcc -static-libstdc++ -static-intel -Wl,-O2 -march=native -mtune=native -falign-functions=32 -fasynchronous-unwind-tables -fno-stack-protector -feliminate-unused-debug-types -ipo -flto=full -flto-jobs=16 -Wno-error -Wp,-D_REENTRANT -pipe -fPIC -fomit-frame-pointer -pthread $PGO_USE"

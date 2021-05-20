@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : onemkl
 Version  : 0.2
-Release  : 2
+Release  : 3
 URL      : file:///aot/build/clearlinux/packages/onemkl/onemkl-v0.2.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/onemkl/onemkl-v0.2.tar.gz
 Summary  : GoogleTest (with main() function)
@@ -112,8 +112,6 @@ BuildRequires : zlib-staticdev
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
-# Disable automatic requeriments processing
-AutoReq: no
 Patch1: 0001-Fix-FindCBLAS.cmake.patch
 
 %description
@@ -126,8 +124,6 @@ Group: Development
 Requires: onemkl-lib = %{version}-%{release}
 Provides: onemkl-devel = %{version}-%{release}
 Requires: onemkl = %{version}-%{release}
-# Disable automatic requeriments processing
-AutoReq: no
 
 %description dev
 dev components for the onemkl package.
@@ -136,8 +132,6 @@ dev components for the onemkl package.
 %package lib
 Summary: lib components for the onemkl package.
 Group: Libraries
-# Disable automatic requeriments processing
-AutoReq: no
 
 %description lib
 lib components for the onemkl package.
@@ -154,7 +148,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1621462285
+export SOURCE_DATE_EPOCH=1621487344
 unset LD_AS_NEEDED
 mkdir -p clr-build
 pushd clr-build
@@ -291,7 +285,7 @@ fi
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1621462285
+export SOURCE_DATE_EPOCH=1621487344
 rm -rf %{buildroot}
 pushd clr-build
 %ninja_install

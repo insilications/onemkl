@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : onemkl
 Version  : 0.2
-Release  : 16
+Release  : 17
 URL      : file:///aot/build/clearlinux/packages/onemkl/onemkl-v0.2.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/onemkl/onemkl-v0.2.tar.gz
 Summary  : GoogleTest (with main() function)
@@ -149,7 +149,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1622292611
+export SOURCE_DATE_EPOCH=1622293564
 unset LD_AS_NEEDED
 mkdir -p clr-build
 pushd clr-build
@@ -291,7 +291,7 @@ fi
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1622292611
+export SOURCE_DATE_EPOCH=1622293564
 rm -rf %{buildroot}
 pushd clr-build
 %ninja_install

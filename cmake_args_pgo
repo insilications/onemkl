@@ -9,7 +9,7 @@
 -DCMAKE_BUILD_TYPE=Release
 -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
 -DREF_LAPACK_ROOT=/usr
--DTARGET_DOMAINS="rng:lapack"
+-DTARGET_DOMAINS="rng lapack"
 -DCMAKE_C_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/icx"
 -DCMAKE_CXX_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp"
 -DBUILD_DOC:BOOL=ON

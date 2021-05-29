@@ -111,7 +111,6 @@ BuildRequires : zlib-staticdev
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
-Patch1: 0001-Fix-FindCBLAS.cmake.patch
 
 %description
 # oneAPI Math Kernel Library (oneMKL) Interfaces
@@ -121,7 +120,6 @@ oneMKL interfaces are an open-source implementation of the oneMKL Data Parallel 
 grep -qxF 'source /aot/intel/oneapi/setvars.sh' /builddir/.bashrc || echo 'source /aot/intel/oneapi/setvars.sh' >> /builddir/.bashrc || :
 %setup -q -n onemkl
 cd %{_builddir}/onemkl
-%patch1 -p1
 
 %build
 unset http_proxy
@@ -129,7 +127,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1622290219
+export SOURCE_DATE_EPOCH=1622290645
 unset LD_AS_NEEDED
 mkdir -p clr-build
 pushd clr-build
@@ -207,6 +205,7 @@ export LDFLAGS="${LDFLAGS_GENERATE}"
 -DCMAKE_BUILD_TYPE=Release \
 -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
 -DREF_BLAS_ROOT="/usr" \
+-DREF_LAPACK_ROOT="/usr" \
 -DCMAKE_C_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/icx" \
 -DCMAKE_CXX_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp" \
 -DBUILD_DOC:BOOL=ON \
@@ -248,6 +247,7 @@ export LDFLAGS="${LDFLAGS_USE}"
 -DCMAKE_BUILD_TYPE=Release \
 -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
 -DREF_BLAS_ROOT="/usr" \
+-DREF_LAPACK_ROOT="/usr" \
 -DCMAKE_C_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/icx" \
 -DCMAKE_CXX_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp" \
 -DBUILD_DOC:BOOL=ON \
@@ -269,7 +269,7 @@ fi
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1622290219
+export SOURCE_DATE_EPOCH=1622290645
 rm -rf %{buildroot}
 pushd clr-build
 %ninja_install

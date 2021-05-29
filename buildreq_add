@@ -1,8 +1,10 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
 binutils-dev
+binutils-extras
 buildreq-cmake
 buildreq-distutils3
+Cython
 doxygen
 eigen
 eigen-data
@@ -14,9 +16,12 @@ gcc-libs-math
 gcc-libstdc++32
 gcc-libubsan
 gcc-locale
+gfortran
 git
 glibc-dev
+glibc-locale
 glibc-staticdev
+glibc-utils
 graphviz
 hwloc
 hwloc-dev
@@ -67,8 +72,6 @@ nasm
 nasm-bin
 ncurses-dev
 ninja
-nv-codec-headers
-nv-codec-headers-dev
 openblas
 openblas-dev
 openblas-staticdev
@@ -89,6 +92,7 @@ Sphinx
 swig
 tbb
 tbb-dev
+tbb-lib
 xz-dev
 xz-staticdev
 yaml-cpp

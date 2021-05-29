@@ -51,4 +51,3 @@ export CC="/aot/intel/oneapi/compiler/latest/linux/bin/icx"
 export C_INCLUDE_PATH="/usr/include/c++/11:/usr/include/c++/11/x86_64-generic-linux"
 export CPLUS_INCLUDE_PATH="/usr/include/c++/11:/usr/include/c++/11/x86_64-generic-linux"
 export CPATH="/usr/include/c++/11:/usr/include/c++/11/x86_64-generic-linux"
-source /aot/intel/oneapi/setvars.sh

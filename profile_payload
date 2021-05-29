@@ -1,2 +1,2 @@
-ctest -j8 --progress || :
+ctest -j16 --verbose --progress --timeout 300|| :
 llvm-profdata merge -output=/var/tmp/pgo/default.profdata /var/tmp/pgo/

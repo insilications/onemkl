@@ -1,2 +1,4 @@
 cp -a %{buildroot}/usr/lib/ %{buildroot}/usr/lib64/
 rm -rf %{buildroot}/usr/lib/
+install -dm 0755 %{buildroot}/usr/lib64/haswell/ || :
+cp --archive %{buildroot}/usr/lib64/lib*.so* %{buildroot}/usr/lib64/haswell/ || :

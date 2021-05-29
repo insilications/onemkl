@@ -127,7 +127,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1622290645
+export SOURCE_DATE_EPOCH=1622290706
 unset LD_AS_NEEDED
 mkdir -p clr-build
 pushd clr-build
@@ -179,7 +179,7 @@ export CCACHE_BASEDIR=/builddir/build/BUILD
 #export CCACHE_LOGFILE=/var/tmp/ccache/cache.debug
 #export CCACHE_DEBUG=true
 #export CCACHE_NODIRECT=true
-#
+# -DREF_BLAS_ROOT="/usr"
 export CMAKE_MODULE_PATH="/aot/intel/oneapi/lib64/cmake/"
 export CXX="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp"
 export CC="/aot/intel/oneapi/compiler/latest/linux/bin/icx"
@@ -204,7 +204,6 @@ export LDFLAGS="${LDFLAGS_GENERATE}"
 -DCMAKE_JOB_POOL_LINK="full_jobs" \
 -DCMAKE_BUILD_TYPE=Release \
 -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
--DREF_BLAS_ROOT="/usr" \
 -DREF_LAPACK_ROOT="/usr" \
 -DCMAKE_C_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/icx" \
 -DCMAKE_CXX_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp" \
@@ -246,7 +245,6 @@ export LDFLAGS="${LDFLAGS_USE}"
 -DCMAKE_JOB_POOL_LINK="full_jobs" \
 -DCMAKE_BUILD_TYPE=Release \
 -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
--DREF_BLAS_ROOT="/usr" \
 -DREF_LAPACK_ROOT="/usr" \
 -DCMAKE_C_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/icx" \
 -DCMAKE_CXX_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp" \
@@ -269,7 +267,7 @@ fi
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1622290645
+export SOURCE_DATE_EPOCH=1622290706
 rm -rf %{buildroot}
 pushd clr-build
 %ninja_install

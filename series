@@ -1,3 +1,4 @@
 #0001-Fix-FindCBLAS.cmake.patch
 #0002-Fix-find-CUDA.patch
 #0001-FindLAPACKE.cmake-fix.patch
+0001-Fix-FindCBLAS-for-OpenBLAS.patch

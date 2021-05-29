@@ -1,2 +1,2 @@
-ctest -j16 --verbose --progress --timeout 300|| :
+ctest -j16 --verbose --progress --timeout 300 || :
 /aot/intel/oneapi/intelpython/latest/bin/llvm-profdata merge -output=/var/tmp/pgo/default.profdata /var/tmp/pgo/

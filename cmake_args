@@ -8,8 +8,9 @@
 -DCMAKE_JOB_POOL_LINK="full_jobs"
 -DCMAKE_BUILD_TYPE=Release
 -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
--DREF_LAPACK_ROOT=/usr
--DTARGET_DOMAINS="rng lapack"
+-DMKLROOT=/aot/intel/oneapi/mkl/latest
+-DREF_BLAS_ROOT=/usr
+-DTARGET_DOMAINS="rng blas"
 -DCMAKE_C_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/icx"
 -DCMAKE_CXX_COMPILER="/aot/intel/oneapi/compiler/latest/linux/bin/dpcpp"
 -DBUILD_DOC:BOOL=ON
